@@ -1,0 +1,40 @@
+{
+  "Personajes": [
+    {
+    "id":"-NXo81B4U61aGH4Nr4Hh",
+      "Ace": "x",
+      "Apellidos": "Fire Shimo",
+      "Cumpleaños": "",
+      "Genero": "",
+      "Historia": "Su historia",
+      "Nombre": "Victor",
+      "OrientacionSexual": "bi",
+      "Sexo": "db",
+      "SignoZodiacal": "Sagitario"
+    },
+
+    {"id":"-NXpFlxXxF_ct3R-c0ek",
+      "Ace": "",
+      "Apellidos": "Gallardo",
+      "Cumpleaños": "",
+      "Genero": "",
+      "Historia": "historia",
+      "Nombre": "Juan",
+      "OrientacionSexual": "hete",
+      "Sexo": "h",
+      "SignoZodiacal": "Leo"
+    },
+    {
+      "id":"-NidNURZhOAQlXr3jVPo",
+      "Ace": "x",
+      "Apellidos": "Gomez",
+      "Cumpleaños": "",
+      "Genero": "",
+      "Historia": "historia del segundo personaje",
+      "Nombre": "Alejandro",
+      "OrientacionSexual": "hete",
+      "Sexo": "h",
+      "SignoZodiacal": "Acuario"
+    }
+  ]
+}

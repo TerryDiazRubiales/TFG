@@ -1,0 +1,35 @@
+<div class="flex flex-column p-2">
+
+    <h3> Buscador</h3>
+
+    <mat-form-field>
+
+        <mat-label>Buscador de personajes</mat-label>
+        <input 
+        type="text" 
+        matInput 
+        [formControl]="searchInput" 
+        (input)="searchPersonaje()" 
+        [matAutocomplete]="auto" />
+
+        <!-- Autocomplete -->
+        <mat-autocomplete autoActiveFirstOption 
+            #auto="matAutocomplete"
+            (optionSelected)="OnSelectedOption( $event )" >
+            <mat-option *ngFor="let personaje of personajes" [value]="personaje">
+                {{ personaje.Nombre }}
+            </mat-option>
+            
+            <mat-option 
+            *ngIf="personajes.length === 0 && searchInput.value && searchInput.value.length > 0" 
+            value="">
+                No hay respuestas a su búsqueda: "{{ searchInput.value }}"
+            </mat-option>
+
+          </mat-autocomplete>
+
+    </mat-form-field>
+
+    {{ selectedPj | json }}
+
+</div>

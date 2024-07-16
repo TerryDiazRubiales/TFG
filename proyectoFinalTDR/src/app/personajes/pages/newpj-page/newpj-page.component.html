@@ -1,0 +1,145 @@
+<h1>
+    {{ currentCharacter.Nombre ? 'Editar OC:' : 'Agregar OC' }}
+    <small *ngIf="currentCharacter.Nombre"> {{ currentCharacter.Nombre }} </small> 
+</h1>
+    
+<mat-divider class="mb-2"></mat-divider>
+    
+<div class="grid">
+    
+    <div class="col-12 sm:col-6">
+        <mat-card>
+            <mat-card-content>
+
+                <!-- formulario -->
+                <form class="grid" [formGroup]="characterForm" (ngSubmit)="onSubmit()">
+
+                    <!--los forms a rellenar -->
+                    <mat-form-field class="col-12 sm:col-6">
+                        <mat-label>Nombre</mat-label>
+                        <input
+                        matInput
+                        type="text"
+                        required 
+                        formControlName="Nombre"
+                         />
+                    </mat-form-field>
+
+                    <mat-form-field class="col-12 sm:col-6">
+                        <mat-label>Apellido</mat-label>
+                        <input
+                        matInput
+                        type="text"
+                        required 
+                        formControlName="Apellidos"
+                        />
+                    </mat-form-field>
+
+                    <mat-form-field class="col-12 sm:col-6">
+                        <mat-label>Cumpleaños</mat-label>
+                        <input
+                        matInput
+                        type="text"
+                        required 
+                        formControlName="Cumpleanos"
+                        />
+                    </mat-form-field>
+
+                    <mat-form-field class="col-12 sm:col-6">
+                        <mat-label>Signo Zodiacal</mat-label>
+                        <mat-select 
+                        formControlName="SignoZodiacal"
+                        required="">
+                            <mat-option *ngFor="let signo of Signo" [value]="signo.id">
+                                {{ signo.desc }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field class="col-12">
+                        <mat-label>Género</mat-label>
+                        <mat-select 
+                        formControlName="Genero"
+                        required="">
+                            <mat-option *ngFor="let genero of Genero" [value]="genero.id">
+                                {{ genero.desc }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field class="col-12">
+                        <mat-label>Sexo</mat-label>
+                        <mat-select 
+                        formControlName="Sexo"
+                        required="">
+                            <mat-option *ngFor="let sexo of Sexo" [value]="sexo.id">
+                                {{ sexo.desc }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field class="col-12">
+                        <mat-label>Orientación Sexual</mat-label>
+                        <mat-select 
+                        formControlName="OrientacionSexual"
+                        required="">
+                            <mat-option *ngFor="let orientacion of Orientacion" [value]="orientacion.id">
+                                {{ orientacion.desc }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field class="col-12">
+                        <mat-label>Romanticismo <small>[ Si no estas en el espectro Asexual no es necesario ]</small> </mat-label>
+                        <mat-select
+                        formControlName="Ace">
+                            <mat-option *ngFor="let ace of Ace" [value]="ace.id">
+                                {{ ace.desc }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    
+                    <mat-form-field class="col-12">
+                        <mat-label>Historia</mat-label>
+                        <input
+                        matInput
+                        type="text"
+                        required />
+                    </mat-form-field>
+                     <!--fin -->
+
+                </form>
+                <!-- FIN formulario -->
+
+                <!-- botones -->
+                <div class="flex justify-content-between">
+
+                    <button *ngIf="currentCharacter.Nombre"
+                    (click)="onDeleteCharacter()"
+                     mat-flat-button color="warm"> 
+                        Borrar 
+                    </button>
+                    <span></span>
+
+                    <button mat-flat-button color="primary" (click)="onSubmit()"> 
+                        <mat-icon>save</mat-icon>
+                        Guardar 
+                    </button>
+
+                </div>
+                
+            </mat-card-content>
+        </mat-card>
+    </div>
+    
+    <div class="col-12 sm:col-6">
+
+        <!-- imagen del personaje -->
+        <mat-card>
+            <!-- <img [src]="currentCharacter | characterImage" alt="Imagen del personaje" mat-card-image> -->
+        </mat-card>
+
+    </div>
+    
+    
+</div>
