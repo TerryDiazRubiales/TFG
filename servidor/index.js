@@ -9,7 +9,7 @@ class App {
 
     this.database();
     // this.middlewares();
-    // this.routes();
+    this.routes();
 
     this.express.listen(2202, () =>
       console.log(`API REST con mongo DB ejecutando en el puerto 2202 `)

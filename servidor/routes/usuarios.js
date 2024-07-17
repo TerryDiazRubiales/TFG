@@ -1,9 +1,9 @@
 const express = require("express");
-const usuarios = require("./controller/UsuariosController");
+const usuarios = require("../controllers/usuarioController");
 const routes = express.Router();
 
-// // Ruta para la creación de un producto
-// routes.post('/producto', productos.create);
+// Registro de un usuario
+routes.post('/auth/register', usuarios.create);
 
 // // Ruta para obtener todos los productos registrados
 // routes.get('/productos', productos.findAll);

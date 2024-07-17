@@ -4,6 +4,7 @@ class UsuariosController {
     // Crea un nuevo usuario
     async create(req, res) {
         try {
+            console.log(req.body);
             const data = await Usuario.create(req.body);
             return res.json(data);
         } catch (err) {
@@ -13,6 +14,7 @@ class UsuariosController {
             });
         }
     }
+
 }
 
 module.exports = new UsuariosController();
