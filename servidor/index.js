@@ -28,7 +28,7 @@ class App {
   // }
 
   routes() {
-    this.express.use(require("./routes/usuarios"));
+    this.express.use('/auth', require("./routes/auth"));
   }
 }
 module.exports = new App().express;
