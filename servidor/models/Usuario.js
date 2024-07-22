@@ -40,7 +40,7 @@ UsuarioSchema.pre("save", async function (next) {
 
 // Compare the given password with the hashed password in the database
 UsuarioSchema.methods.comparePassword = async function (contrasena) {
-  return bcrypt.compare(contrasena, this.contrasena);
+  return bcrypt.compareSync(contrasena, this.contrasena);
 };
 
 const User = mongoose.model("Usuario", UsuarioSchema);

@@ -5,6 +5,9 @@ const routes = express.Router();
 // Registro de un usuario
 routes.post("/register", auth.register);
 
+// Login de un usuario
+routes.post("/login", auth.login);
+
 // // Ruta para obtener todos los productos registrados
 // routes.get('/productos', productos.findAll);
 

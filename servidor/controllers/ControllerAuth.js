@@ -1,5 +1,8 @@
 const User = require("../models/Usuario");
-const bcrypt = require("bcrypt-nodejs");
+const jwt = require("jsonwebtoken");
+
+const JWT_SECRET =
+  "4b4ebe4e06ac0aec02f4fe5a45a4e1f4e4a0bb5b09211707549e714c0f0c6683";
 
 class ControllerAuth {
   //Logueo
@@ -17,7 +20,7 @@ class ControllerAuth {
         return res.status(401).json({ message: "Incorrect password" });
       }
 
-      const token = jwt.sign({ userId: user._id }, process.env.SECRET_KEY, {
+      const token = jwt.sign({ userId: user._id }, JWT_SECRET, {
         expiresIn: "1 hour",
       });
       res.json({ token });
@@ -26,18 +29,14 @@ class ControllerAuth {
     }
   }
 
-  // Registtro
+  // Registro
   async register(req, res, next) {
     const { nombre, email, contrasena } = req.body;
     try {
-      // const hashedPassword = await bcrypt.hash(contrasena, 10);
-      // console.log(hashedPassword);
-      const user = new User({ nombre, email, contrasena: contrasena });
-      console.log(user);
+      const user = new User({ nombre, email, contrasena });
       await user.save();
       res.json({ message: "Registration successful" });
     } catch (error) {
-      console.log("error", error);
       next(error);
     }
   }
