@@ -1,6 +1,7 @@
 const express = require("express");
 const db = require("./config/db");
 const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
 
 // Conectamos a la base de datos
 class App {
@@ -8,6 +9,8 @@ class App {
     this.express = express();
 
     this.database();
+
+    this.express.use(bodyParser.json());
     // this.middlewares();
     this.routes();
 
@@ -28,7 +31,7 @@ class App {
   // }
 
   routes() {
-    this.express.use('/auth', require("./routes/auth"));
+    this.express.use("/auth", require("./routes/auth"));
   }
 }
 module.exports = new App().express;

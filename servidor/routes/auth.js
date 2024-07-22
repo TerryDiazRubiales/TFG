@@ -3,7 +3,7 @@ const auth = require("../controllers/ControllerAuth");
 const routes = express.Router();
 
 // Registro de un usuario
-routes.post('/register', auth.register);
+routes.post("/register", auth.register);
 
 // // Ruta para obtener todos los productos registrados
 // routes.get('/productos', productos.findAll);
