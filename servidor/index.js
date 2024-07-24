@@ -5,12 +5,12 @@ const bodyParser = require("body-parser");
 
 const authRouter = require("./routes/auth");
 const apiRouter = require("./routes/api");
-
+const cors = require("cors");
 // Conectamos a la base de datos
 class App {
   constructor() {
     this.express = express();
-
+    this.express.use(cors());
     this.database();
 
     this.express.use(bodyParser.json());
@@ -34,9 +34,8 @@ class App {
   // }
 
   routes() {
-
     this.express.use(["/auth", "/api"], [authRouter, apiRouter]);
-   // this.express.use("/api", require("./routes/api"));
+    // this.express.use("/api", require("./routes/api"));
   }
 }
 module.exports = new App().express;
