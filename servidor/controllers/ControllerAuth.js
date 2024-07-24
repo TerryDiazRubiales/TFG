@@ -14,7 +14,7 @@ class ControllerAuth {
       if (!user) {
         return res.status(404).json({ message: "User not found" });
       }
-
+//
       const passwordMatch = await user.comparePassword(contrasena);
       if (!passwordMatch) {
         return res.status(401).json({ message: "Incorrect password" });
