@@ -7,14 +7,14 @@ const JWT_SECRET =
 class ControllerAuth {
   //Logueo
   async login(req, res, next) {
-    const { nombre, contrasena } = req.body;
+    const { email, contrasena } = req.body;
 
     try {
-      const user = await User.findOne({ nombre });
+      const user = await User.findOne({ email });
       if (!user) {
         return res.status(404).json({ message: "User not found" });
       }
-//
+
       const passwordMatch = await user.comparePassword(contrasena);
       if (!passwordMatch) {
         return res.status(401).json({ message: "Incorrect password" });

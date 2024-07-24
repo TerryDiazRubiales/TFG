@@ -3,6 +3,9 @@ const db = require("./config/db");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 
+const authRouter = require("./routes/auth");
+const apiRouter = require("./routes/api");
+
 // Conectamos a la base de datos
 class App {
   constructor() {
@@ -31,7 +34,9 @@ class App {
   // }
 
   routes() {
-    this.express.use("/auth", require("./routes/auth"));
+
+    this.express.use(["/auth", "/api"], [authRouter, apiRouter]);
+   // this.express.use("/api", require("./routes/api"));
   }
 }
 module.exports = new App().express;

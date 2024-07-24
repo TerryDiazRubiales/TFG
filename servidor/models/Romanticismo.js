@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const GeneroSchema = new mongoose.Schema({
+const RomanticismoSchema = new mongoose.Schema({
     nombre: {
         type: String,
         required: true
@@ -10,4 +10,4 @@ const GeneroSchema = new mongoose.Schema({
     timestamps: true
 });
 
-module.exports = mongoose.model("Genero", GeneroSchema);
+module.exports = mongoose.model("Romanticismo", RomanticismoSchema);
