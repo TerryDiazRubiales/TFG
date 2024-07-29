@@ -40,6 +40,9 @@ UsuarioSchema.pre("save", async function (next) {
 
 // Compare the given password with the hashed password in the database
 UsuarioSchema.methods.comparePassword = async function (contrasena) {
+  const salt = bcrypt.genSaltSync(10);
+  const pass = bcrypt.hashSync(contrasena, salt);
+
   return bcrypt.compareSync(contrasena, this.contrasena);
 };
 

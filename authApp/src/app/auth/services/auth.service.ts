@@ -36,9 +36,9 @@ export class AuthService {
     return true;
   }
 
-  login(email: string, password: string): Observable<boolean> {
+  login(email: string, contrasena: string): Observable<boolean> {
     const url = `${this.baseUrl}/auth/login`;
-    const body = { email, password };
+    const body = { email, contrasena };
 
     return this.http.post<LoginResponse>(url, body).pipe(
       map(({ user, token }) => this.setAuthentication(user, token)),

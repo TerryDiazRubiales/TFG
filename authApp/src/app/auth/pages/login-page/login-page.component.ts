@@ -21,7 +21,7 @@ export class LoginPageComponent {
 
   login() {
     const { email, password } = this.myForm.value;
-
+   
     this.authService.login(email, password).subscribe({
       next: () => this.router.navigateByUrl('./dashboard'),
       error: (message) => {
