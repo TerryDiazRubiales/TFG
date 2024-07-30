@@ -8,36 +8,40 @@ import { PersonajePageComponent } from './pages/personaje-page/personaje-page.co
 
 // localhost:4200/personajes/
 const routes: Routes = [
-  { path: '', component: LayoutPageComponent },
-
   {
-    path: 'new-personaje',
-    component: NewpjPageComponent,
-  },
+    path: '',
+    component: LayoutPageComponent,
+    children: [
+      {
+        path: 'new-personaje',
+        component: NewpjPageComponent,
+      },
 
-  {
-    path: 'search',
-    component: SearchPageComponent,
-  },
+      {
+        path: 'search',
+        component: SearchPageComponent,
+      },
 
-  {
-    path: 'edit/:id',
-    component: NewpjPageComponent,
-  },
+      {
+        path: 'edit/:id',
+        component: NewpjPageComponent,
+      },
 
-  {
-    path: 'list',
-    component: ListPageComponent,
-  },
+      {
+        path: 'list',
+        component: ListPageComponent,
+      },
 
-  {
-    path: ':id',
-    component: PersonajePageComponent,
-  },
+      {
+        path: ':id',
+        component: PersonajePageComponent,
+      },
 
-  {
-    path: '**',
-    redirectTo: '',
+      {
+        path: '',
+        redirectTo: 'list',
+      },
+    ],
   },
 ];
 
