@@ -7,14 +7,15 @@ import { isAuthenticatedGuard } from './auth/guards/is-authenticated.guard';
 const routes: Routes = [
   {
     path: 'auth',
-    canActivate: [ isNotAuthenticatedGuard ],
-    loadChildren: () => import('./auth/auth.module').then( m => m.AuthModule ),
+    canActivate: [isNotAuthenticatedGuard],
+    loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
   },
 
   {
     path: 'personajes',
-    canActivate: [ isAuthenticatedGuard ],
-    loadChildren: () => import('./personajes/personajes.module').then( m => m.PersonajesModule ),
+    // canActivate: [isAuthenticatedGuard],
+    loadChildren: () =>
+      import('./personajes/personajes.module').then((m) => m.PersonajesModule),
   },
 
   {
@@ -24,8 +25,8 @@ const routes: Routes = [
 
   {
     path: '',
-    redirectTo: 'personajes',
-    pathMatch: 'full'
+    redirectTo: 'auth',
+    pathMatch: 'full',
   },
 
   {
@@ -36,6 +37,6 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

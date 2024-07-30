@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { AuthService } from '../../services/auth.service';
 
-
 @Component({
   templateUrl: './login-page.component.html',
   styleUrls: ['./login-page.component.css'],
@@ -21,9 +20,12 @@ export class LoginPageComponent {
 
   login() {
     const { email, password } = this.myForm.value;
-   
+
     this.authService.login(email, password).subscribe({
-      next: () => this.router.navigateByUrl('./personajes'),
+      next: () => {
+        Swal.fire('OK', 'Logeado correctamente', 'success');
+        this.router.navigateByUrl('personajes');
+      },
       error: (message) => {
         Swal.fire('Error', message, 'error');
       },
