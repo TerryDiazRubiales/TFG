@@ -11,12 +11,16 @@ import {
   User,
 } from '../interfaces';
 
+import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
+
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   private readonly baseUrl: string = environments.baseUrl;
   private http = inject(HttpClient);
+  private router      = inject( Router );
 
   private _currentUser = signal<User | null>(null);
   private _authStatus = signal<AuthStatus>(AuthStatus.checking);
@@ -74,9 +78,12 @@ export class AuthService {
       })
     );
   }
+  
   logout() {
     localStorage.removeItem('token');
     this._currentUser.set(null);
     this._authStatus.set(AuthStatus.notAuthenticated);
+    Swal.fire('Logout', 'Sesión Cerrada', 'success');
+    this.router.navigateByUrl('/auth/login');
   }
 }

@@ -13,7 +13,7 @@ const routes: Routes = [
 
   {
     path: 'personajes',
-    // canActivate: [isAuthenticatedGuard],
+    canActivate: [isAuthenticatedGuard],
     loadChildren: () =>
       import('./personajes/personajes.module').then((m) => m.PersonajesModule),
   },

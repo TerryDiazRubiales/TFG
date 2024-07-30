@@ -13,6 +13,7 @@ export const isAuthenticatedGuard: CanActivateFn = (route, state) => {
   }
 
   if ( authService.authStatus() === AuthStatus.checking ) {
+    router.navigateByUrl('/auth/login');
     return false;
   }
 

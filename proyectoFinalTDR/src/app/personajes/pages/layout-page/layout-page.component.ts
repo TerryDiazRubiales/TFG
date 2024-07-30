@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { AuthService } from 'src/app/auth/services/auth.service';
 
 @Component({
   selector: 'app-layout-page',
@@ -6,6 +7,9 @@ import { Component } from '@angular/core';
   styles: [],
 })
 export class LayoutPageComponent {
+
+  private authService=inject(AuthService);
+
   public sidebarItems = [
     { label: 'Listado', icon: 'label', url: './list' },
 
@@ -13,4 +17,8 @@ export class LayoutPageComponent {
 
     { label: 'Buscar ...', icon: 'search', url: './search' },
   ];
+
+  logout (): void {
+    this.authService.logout();
+  }
 }
