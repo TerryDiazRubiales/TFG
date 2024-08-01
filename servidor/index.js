@@ -35,7 +35,6 @@ class App {
 
   routes() {
     this.express.use(["/auth", "/api"], [authRouter, apiRouter]);
-    // this.express.use("/api", require("./routes/api"));
   }
 }
 module.exports = new App().express;

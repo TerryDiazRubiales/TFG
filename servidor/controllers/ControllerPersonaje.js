@@ -1,9 +1,9 @@
 const Personaje = require("../models/Personaje");
 
-class ControllerAuth {
+class ControllerPersonaje {
   //Creación de personaje
   async create (req, res, next) {
-   
+
     try {
         const personaje = new Personaje (req.body);
         await personaje.save();
@@ -14,17 +14,27 @@ class ControllerAuth {
     }
   }
 
-  // Registro
-  async register(req, res, next) {
-    const { nombre, email, contrasena } = req.body;
+  async list (req, res, next) {
+
     try {
-      const Personaje = new Personaje({ nombre, email, contrasena });
-      await Personaje.save();
-      res.json({ message: "Registration successful" });
-    } catch (error) {
-      next(error);
-    }
+      
+
+      const personajeList = await Personaje.find({}, (err, list) => {
+
+        var personajes = {};
+        list.forEach(personaje => {
+          personajes[personaje.usuario] = personaje;
+        });
+        res.status(200).json(personajes)
+      
+      });
+
+  } catch (error) {
+    next(error);
   }
+
+  }
+
 }
 
-module.exports = new ControllerAuth();
+module.exports = new ControllerPersonaje();
