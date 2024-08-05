@@ -20,7 +20,7 @@ const PersonajeSchema = new mongoose.Schema({
     },
     curiosidades: {
         type: String,
-        required: true
+        
     },
     genero: {
         type: Schema.Types.ObjectId,
@@ -51,6 +51,7 @@ const PersonajeSchema = new mongoose.Schema({
         ref: "Usuario",
         require: true
     }
+   
 },
 {
     timestamps: true

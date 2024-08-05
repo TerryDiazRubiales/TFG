@@ -33,7 +33,7 @@ export class SearchPageComponent {
     }
 
     const personaje: Personaje = event.option.value;
-    this.searchInput.setValue( personaje.Nombre );
+    this.searchInput.setValue( personaje.nombre );
 
     this.selectedPj = personaje;
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { filter, switchMap, tap } from 'rxjs';
 
@@ -22,18 +22,20 @@ import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-
 })
 export class NewpjPageComponent implements OnInit {
 
+  isEditar:boolean = false;
+
   // PARA EL FORMULARIO
   public characterForm = new FormGroup({
 
-    Ace:               new FormControl(''),
-    Apellidos:         new FormControl(''),
-    Cumpleanos:        new FormControl(''),
-    Genero:            new FormControl(''),
-    Historia:          new FormControl(''),
-    Nombre:            new FormControl(''),
-    OrientacionSexual: new FormControl(''),
-    Sexo:              new FormControl(''),
-    SignoZodiacal:     new FormControl(''),
+    romanticismo:       new FormControl(''),
+    apellidos:         new FormControl('', Validators.required),
+    fechaCumple:        new FormControl('', Validators.required),
+    genero:            new FormControl('', Validators.required),
+    historia:          new FormControl('', Validators.required),
+    nombre:            new FormControl('', Validators.required),
+    orientacionSexual: new FormControl('', Validators.required),
+    sexo:              new FormControl('', Validators.required),
+    signoZodiacal:     new FormControl('', Validators.required),
 
   });
 
@@ -135,32 +137,37 @@ export class NewpjPageComponent implements OnInit {
 
     if ( this.characterForm.invalid ) return;
 
-    if ( this.currentCharacter.Nombre ) {
+    if (this.isEditar) {
+
+  //EDITAR PERSONAJE
       this.PJService.updateCharacter( this.currentCharacter )
       .subscribe( character => {
         // TODO: mostrar snackbar
 
-        this.showSnackbar(`${ character.Nombre } actualizado correctamente!`);
+        this.showSnackbar(`${ character.nombre } actualizado correctamente!`);
 
       } );
 
-      return;
+  //CREAR PERSONAJE
+    } else {
 
-    }
-
-    this.PJService.addCharacter( this.currentCharacter ) 
+      this.characterForm.valid ? 
+      this.PJService.createPersonaje( this.currentCharacter ) 
     .subscribe( character => {
       // TODO: mostrar snackbar, y navegar a /personajes/edit/personaje.id
 
-      this.router.navigate(['/personajes/edit', character.Nombre]);
-      this.showSnackbar(`${ character.Nombre } creado correctamente!`);
+      // this.router.navigate(['/personajes/edit', character.nombre]);
+      this.showSnackbar(`${ character.nombre } Personaje creado correctamente!`);
 
-    } );
+    } )
+    : this.showSnackbar( `Formulario erronéo!` );
 
+    }
+    
   }
 
   onDeleteCharacter () {
-    if ( !this.currentCharacter.Nombre ) throw Error('Character id is required');
+    if ( !this.currentCharacter.nombre ) throw Error('Character id is required');
 
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       data: this.characterForm.value,
@@ -169,7 +176,7 @@ export class NewpjPageComponent implements OnInit {
     dialogRef.afterClosed()
     .pipe(
       filter( (result: boolean) => result ), // lo dejo pasar si el resultado es positivo
-      switchMap ( () => this.PJService.deleteCharacterById( this.currentCharacter.Nombre ) ), // si es positivo mandamos a eliminar 
+      switchMap ( () => this.PJService.deleteCharacterById( this.currentCharacter.nombre ) ), // si es positivo mandamos a eliminar 
       filter( (wasDeleted: boolean) => wasDeleted ) // se elimina y lo dejamos pasar 
     )
     .subscribe(() => {

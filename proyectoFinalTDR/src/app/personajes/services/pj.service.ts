@@ -29,13 +29,14 @@ getSuggestions( query: string ): Observable<Personaje[]> {
 
 }
 
-addCharacter( personaje: Personaje ): Observable<Personaje> {
-    return this.http.post<Personaje>( `${ this.baseUrl }/personajes`, personaje );
+createPersonaje( personaje: Personaje ): Observable<Personaje> {
+    console.log("entra");
+    return this.http.post<Personaje>( `${ this.baseUrl }/api/personaje/create`, personaje );
 }
 
 updateCharacter( personaje: Personaje ): Observable<Personaje> {
-    if ( !personaje.Nombre ) throw Error('Character id is required');
-    return this.http.patch<Personaje>( `${ this.baseUrl }/personajes/${ personaje.Nombre }`, personaje );
+    if ( !personaje.nombre ) throw Error('Character id is required');
+    return this.http.patch<Personaje>( `${ this.baseUrl }/personajes/${ personaje.nombre }`, personaje );
 }
 
 deleteCharacterById( id: string ): Observable<boolean> {
