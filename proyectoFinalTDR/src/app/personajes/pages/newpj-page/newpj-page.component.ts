@@ -10,6 +10,7 @@ import { pjServices } from '../../services/pj.service';
 import { Personaje } from '../../interfaces/pj.interface';
 
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
+import { Genero } from '../../interfaces/genero.interface';
 
 
 
@@ -23,6 +24,7 @@ import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-
 export class NewpjPageComponent implements OnInit {
 
   isEditar:boolean = false;
+  generos : Genero[] = [];
 
   // PARA EL FORMULARIO
   public characterForm = new FormGroup({
@@ -117,6 +119,15 @@ export class NewpjPageComponent implements OnInit {
   // ngOnInit()
   ngOnInit(): void {
     
+  /*  this.PJService.getGeneros().subscribe(
+      next: () => {
+       
+      },
+      error: (message) => {
+        Swal.fire('Error', message, 'error');
+      },
+    ) */
+
     if ( !this.router.url.includes('edit') ) return;
 
     this.activatedRoute.params

@@ -1,3 +1,4 @@
+const Genero = require("../models/Genero");
 const Personaje = require("../models/Personaje");
 
 class ControllerPersonaje {
@@ -34,6 +35,18 @@ class ControllerPersonaje {
   }
 
   }
+
+  async generos (req, res, next) {
+
+    try {
+      const generosList = await Genero.find();
+      res.status(200).send(generosList);
+  } catch (error) {
+    next(error);
+  }
+
+  }
+
 
 }
 

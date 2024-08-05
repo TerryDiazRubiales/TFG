@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, catchError, map, of } from 'rxjs';
 import { Personaje } from '../interfaces/pj.interface';
 import { environments } from '../../../environments/environments';
+import { Genero } from '../interfaces/genero.interface';
 
 @Injectable({providedIn: 'root'})
 export class pjServices {
@@ -14,6 +15,14 @@ constructor(private http: HttpClient) { }
 getPersonajes(): Observable<Personaje[]> {
     return this.http.get<Personaje[]>(`${ this.baseUrl }/personajes`); 
 }
+
+// OBTENCIÓN DE LOS DATOS
+getGeneros(): Observable<Genero[]> {
+    return this.http.get<Genero[]>(`${ this.baseUrl }/personajes/generos`); 
+}
+
+
+// FIN
 
 getPersonajeById( id: string ): Observable <Personaje | undefined > {
 
