@@ -11,6 +11,11 @@ import { Personaje } from '../../interfaces/pj.interface';
 
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { Genero } from '../../interfaces/genero.interface';
+import { Sexo } from '../../interfaces/sexo.interface';
+import Swal from 'sweetalert2';
+import { SignoZodiacal } from '../../interfaces/signoZodiacal.interface';
+import { OrientacionSexual } from '../../interfaces/orientacionSexual.interface';
+import { Romanticismo } from '../../interfaces/romanticismo.interface';
 
 
 
@@ -19,96 +24,40 @@ import { Genero } from '../../interfaces/genero.interface';
   selector: 'app-newpj-page',
   templateUrl: './newpj-page.component.html',
   styles: [
-]
+  ]
 })
 export class NewpjPageComponent implements OnInit {
 
-  isEditar:boolean = false;
-  generos : Genero[] = [];
+  isEditar: boolean = false;
+  generos: Genero[] = [];
+  sexo: Sexo[] = [];
+  signoZodiacal: SignoZodiacal[] = [];
+  orientacionSexual: OrientacionSexual[] = [];
+  romanticismo: Romanticismo[] = [];
 
   // PARA EL FORMULARIO
   public characterForm = new FormGroup({
 
-    romanticismo:       new FormControl(''),
-    apellidos:         new FormControl('', Validators.required),
-    fechaCumple:        new FormControl('', Validators.required),
-    genero:            new FormControl('', Validators.required),
-    historia:          new FormControl('', Validators.required),
-    nombre:            new FormControl('', Validators.required),
+    romanticismo: new FormControl(''),
+    apellidos: new FormControl('', Validators.required),
+    fechaCumple: new FormControl('', Validators.required),
+    genero: new FormControl('', Validators.required),
+    historia: new FormControl('', Validators.required),
+    nombre: new FormControl('', Validators.required),
     orientacionSexual: new FormControl('', Validators.required),
-    sexo:              new FormControl('', Validators.required),
-    signoZodiacal:     new FormControl('', Validators.required),
+    sexo: new FormControl('', Validators.required),
+    signoZodiacal: new FormControl('', Validators.required),
 
   });
 
-  // LOS SELECT DEL FORMULARIO
-  public Signo =  [
-    { id: 'Acuario', desc:'Acuario' },
-    { id: 'Aries', desc:'Aries' },
-    { id: 'Tauro', desc:'Tauro' },
-    { id: 'Geminis', desc:'Geminis' },
-    { id: 'Cancer', desc:'Cancer' },
-    { id: 'Leo', desc:'Leo' },
-    { id: 'Virgo', desc:'Virgo' },
-    { id: 'Escorpio', desc:'Escorpio' },
-    { id: 'Libra', desc:'Libra' },
-    { id: 'Sagitario', desc:'Sagitario' },
-    { id: 'Piscis', desc:'Piscis' },
-    { id: 'Capriconio', desc:'Capricornio' },
-  ]
-
-  public Sexo =  [
-    { id: 'Masculino', desc:'Masculino' },
-    { id: 'Femenino', desc:'Feminino' },
-    { id: 'Intersexual', desc:'Intersexual' },
-    { id: 'Trans', desc:'Trans' },
-  ]
-
-  public Genero =  [
-    { id: 'Mujer', desc:'Mujer' },
-    { id: 'Hombre', desc:'Hombre' },
-    { id: 'No binario', desc:'No binario' },
-    { id: 'Agenero', desc:'Agenero' },
-    { id: 'Bigenero', desc:'Bigenero' },
-    { id: 'Trigenero', desc:'Trigenero' },
-    { id: 'Fluido', desc:'Fludio' },
-    { id: 'Demigirl', desc:'Demigirl' },
-    { id: 'Demiboy', desc:'Demiboy' },
-    { id: 'Demigender', desc:'Demigender' },
-  ]
-
-  public Orientacion =  [
-    { id: 'Heterosexual', desc:'Hetero' },
-    { id: 'Gay', desc:'Gay' },
-    { id: 'Lesbiana', desc:'Lesbiana' },
-    { id: 'Bisexual', desc:'Bisexual' },
-    { id: 'Pansexual', desc:'Pansexual' },
-    { id: 'Asexual', desc:'Asexual' },
-    { id: 'Polisexual', desc:'Polisexual' },
-    { id: 'Omnisexual', desc:'Omnisexual' },
-    { id: 'Antrosexual', desc:'Antrosexual' },
-  ]
-
-  public Ace =  [
-    { id: 'No soy Asexual', desc:' ' },
-    { id: 'Arromantico', desc:'Arromantico' },
-    { id: 'Homorromantico', desc:'Homorromantico' },
-    { id: 'Panrromantico', desc:'Panromantico' },
-    { id: 'Birromantico', desc:'Birromantico' },
-    { id: 'Polirromantico', desc:'Polirromantico' },
-    { id: 'Omnirromantico', desc:'Omnirromantico' },
-    { id: 'Poliamoroso', desc:'Poliamoroso' },
-    { id: 'Heterorromantico', desc:'Heterorromantic' },
-  ]
-
   // CONSTRUCTOR
-  constructor ( private PJService: pjServices, 
-                private activatedRoute: ActivatedRoute,
-                private router: Router,
-                private snackbar: MatSnackBar,
-                private dialog: MatDialog,
-              ) {}
-  
+  constructor(private PJService: pjServices,
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
+    private snackbar: MatSnackBar,
+    private dialog: MatDialog,
+  ) { }
+
 
   get currentCharacter(): Personaje {
     const character = this.characterForm.value as Personaje;
@@ -118,83 +67,140 @@ export class NewpjPageComponent implements OnInit {
 
   // ngOnInit()
   ngOnInit(): void {
-    
-  /*  this.PJService.getGeneros().subscribe(
-      next: () => {
-       
-      },
-      error: (message) => {
-        Swal.fire('Error', message, 'error');
-      },
-    ) */
 
-    if ( !this.router.url.includes('edit') ) return;
+    // OBTENCIÓN DE GÉNEROS
+    this.PJService.getGeneros().subscribe(
+      {
+        next: (response) => {
+          this.generos = response;
+        },
+        error: (message) => {
+          Swal.fire('Error', message, 'error');
+        },
+
+      })
+    // FIN
+
+    // OBTENCIÓN DE SEXO
+    this.PJService.getSexos().subscribe(
+      {
+        next: (response) => {
+          this.sexo = response;
+        },
+        error: (message) => {
+          Swal.fire('Error', message, 'error');
+        },
+
+      })
+    // FIN
+
+    // OBTENCIÓN DE SIGNO ZODIACAL
+    this.PJService.getSignoZodiacales().subscribe(
+      {
+        next: (response) => {
+          this.signoZodiacal = response;
+        },
+        error: (message) => {
+          Swal.fire('Error', message, 'error');
+        },
+
+      })
+    // FIN
+
+    // OBTENCIÓN DE SIGNO ZODIACAL
+    this.PJService.getOrientacionSexual().subscribe(
+      {
+        next: (response) => {
+          this.orientacionSexual = response;
+        },
+        error: (message) => {
+          Swal.fire('Error', message, 'error');
+        },
+
+      })
+    // FIN
+
+    // OBTENCIÓN DE ROMANTICISMO
+    this.PJService.getRomanticismo().subscribe(
+      {
+        next: (response) => {
+          this.romanticismo = response;
+        },
+        error: (message) => {
+          Swal.fire('Error', message, 'error');
+        },
+
+      })
+    // FIN
+
+
+    if (!this.router.url.includes('edit')) return;
 
     this.activatedRoute.params
-    .pipe(
-      switchMap( ({ id }) => this.PJService.getPersonajeById( id ) ),
-    ).subscribe( character => {
+      .pipe(
+        switchMap(({ id }) => this.PJService.getPersonajeById(id)),
+      ).subscribe(character => {
 
-      if ( !character ) return this.router.navigateByUrl('/');
+        if (!character) return this.router.navigateByUrl('/');
 
-      this.characterForm.reset( character );
-      return;
+        this.characterForm.reset(character);
+        return;
 
-    });
+      });
 
   }
 
   onSubmit(): void {
 
-    if ( this.characterForm.invalid ) return;
+    if (this.characterForm.invalid) return;
 
     if (this.isEditar) {
 
-  //EDITAR PERSONAJE
-      this.PJService.updateCharacter( this.currentCharacter )
-      .subscribe( character => {
-        // TODO: mostrar snackbar
+      //EDITAR PERSONAJE
+      this.PJService.updateCharacter(this.currentCharacter)
+        .subscribe(character => {
+          // TODO: mostrar snackbar
 
-        this.showSnackbar(`${ character.nombre } actualizado correctamente!`);
+          this.showSnackbar(`${character.nombre} actualizado correctamente!`);
 
-      } );
+        });
 
-  //CREAR PERSONAJE
+      //CREAR PERSONAJE
     } else {
 
-      this.characterForm.valid ? 
-      this.PJService.createPersonaje( this.currentCharacter ) 
-    .subscribe( character => {
-      // TODO: mostrar snackbar, y navegar a /personajes/edit/personaje.id
+      this.characterForm.valid ?
+        this.PJService.createPersonaje(this.currentCharacter)
+          .subscribe(character => {
+            // TODO: mostrar snackbar, y navegar a /personajes/edit/personaje.id
 
-      // this.router.navigate(['/personajes/edit', character.nombre]);
-      this.showSnackbar(`${ character.nombre } Personaje creado correctamente!`);
+            // this.router.navigate(['/personajes/edit', character.nombre]);
+            this.showSnackbar(`${character.nombre} Personaje creado correctamente!`);
 
-    } )
-    : this.showSnackbar( `Formulario erronéo!` );
+          })
+        : this.showSnackbar(`Formulario erronéo!`);
 
     }
-    
+
   }
 
-  onDeleteCharacter () {
-    if ( !this.currentCharacter.nombre ) throw Error('Character id is required');
+  onDeleteCharacter() {
+    if (!this.currentCharacter.nombre) throw Error('Character id is required');
 
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       data: this.characterForm.value,
     });
 
     dialogRef.afterClosed()
-    .pipe(
-      filter( (result: boolean) => result ), // lo dejo pasar si el resultado es positivo
-      switchMap ( () => this.PJService.deleteCharacterById( this.currentCharacter.nombre ) ), // si es positivo mandamos a eliminar 
-      filter( (wasDeleted: boolean) => wasDeleted ) // se elimina y lo dejamos pasar 
-    )
-    .subscribe(() => {
-      
-      this.router.navigate(['/personajes'])
+      .pipe(
+        filter((result: boolean) => result), // lo dejo pasar si el resultado es positivo
+        switchMap(() => this.PJService.deleteCharacterById(this.currentCharacter.nombre)), // si es positivo mandamos a eliminar 
+        filter((wasDeleted: boolean) => wasDeleted) // se elimina y lo dejamos pasar 
+      )
+      .subscribe(() => {
 
-    })
+        this.router.navigate(['/personajes'])
+
+      })
 
     /* dialogRef.afterClosed().subscribe(result => {
 
@@ -213,14 +219,14 @@ export class NewpjPageComponent implements OnInit {
     }); */
 
   }
-  
-  showSnackbar ( message: string ):void {
 
-    this.snackbar.open( message, 'done', {
+  showSnackbar(message: string): void {
+
+    this.snackbar.open(message, 'done', {
       duration: 4000,
-    } )
+    })
 
 
   }
-  
+
 }

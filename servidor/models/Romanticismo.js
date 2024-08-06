@@ -10,4 +10,4 @@ const RomanticismoSchema = new mongoose.Schema({
     timestamps: true
 });
 
-module.exports = mongoose.model("Romanticismo", RomanticismoSchema);
+module.exports = mongoose.model("Romanticismo", RomanticismoSchema, "romanticismo");

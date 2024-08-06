@@ -18,4 +18,4 @@ const SignoZodiacalSchema = new mongoose.Schema({
     timestamps: true
 });
 
-module.exports = mongoose.model("SignoZodiacal", SignoZodiacalSchema);
+module.exports = mongoose.model("SignoZodiacal", SignoZodiacalSchema, "signoZodiacal");

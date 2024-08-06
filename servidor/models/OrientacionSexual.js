@@ -10,4 +10,4 @@ const OrientacionSexualSchema = new mongoose.Schema({
     timestamps: true
 });
 
-module.exports = mongoose.model("OrientacionSexual", OrientacionSexualSchema);
+module.exports = mongoose.model("OrientacionSexual", OrientacionSexualSchema, "orientacionSexual");

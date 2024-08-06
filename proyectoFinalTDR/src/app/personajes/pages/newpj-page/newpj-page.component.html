@@ -50,8 +50,8 @@
                         <mat-select 
                         formControlName="signoZodiacal"
                         required>
-                            <mat-option *ngFor="let signo of Signo" [value]="signo.id">
-                                {{ signo.desc }}
+                            <mat-option *ngFor="let signo of signoZodiacal" [value]="signo.id">
+                                {{ signo.nombre }}
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
@@ -59,10 +59,10 @@
                     <mat-form-field class="col-12">
                         <mat-label>Género</mat-label>
                         <mat-select 
-                        formControlName="genero"
+                        formControlName="genero.nombre"
                         required>
-                            <mat-option *ngFor="let genero of Genero" [value]="genero.id">
-                                {{ genero.desc }}
+                            <mat-option *ngFor="let genero of generos" [value]="genero.id">
+                                {{ genero.nombre }}
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
@@ -72,8 +72,8 @@
                         <mat-select 
                         formControlName="sexo"
                         required>
-                            <mat-option *ngFor="let sexo of Sexo" [value]="sexo.id">
-                                {{ sexo.desc }}
+                            <mat-option *ngFor="let sexo of sexo" [value]="sexo.id">
+                                {{ sexo.nombre }}
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
@@ -83,8 +83,8 @@
                         <mat-select 
                         formControlName="orientacionSexual"
                         required>
-                            <mat-option *ngFor="let orientacion of Orientacion" [value]="orientacion.id">
-                                {{ orientacion.desc }}
+                            <mat-option *ngFor="let orientacion of orientacionSexual" [value]="orientacion.id">
+                                {{ orientacion.nombre }}
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
@@ -93,8 +93,8 @@
                         <mat-label>Romanticismo <small>[ Si no estas en el espectro Asexual no es necesario ]</small> </mat-label>
                         <mat-select
                         formControlName="romanticismo">
-                            <mat-option *ngFor="let ace of Ace" [value]="ace.id">
-                                {{ ace.desc }}
+                            <mat-option *ngFor="let ace of romanticismo" [value]="ace.id">
+                                {{ ace.nombre }}
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
