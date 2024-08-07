@@ -1,4 +1,4 @@
 export interface Sexo {
-    id:               string;
+    _id:               string;
     nombre:         string;
 }

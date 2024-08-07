@@ -23,16 +23,11 @@ class ControllerPersonaje {
 
     try {
 
-
-      const personajeList = await Personaje.find({}, (err, list) => {
-
-        var personajes = {};
-        list.forEach(personaje => {
-          personajes[personaje.usuario] = personaje;
-        });
-        res.status(200).json(personajes)
+      const personajesList = await Personaje.where({
+        usuario: req.body.usuario
 
       });
+      res.status(200).send(personajesList);
 
     } catch (error) {
       next(error);

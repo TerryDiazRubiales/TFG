@@ -1,5 +1,5 @@
 export interface SignoZodiacal {
-    id:               string;
+    _id:               string;
     nombre:               string;
     rangoInicial:         string;
     rangoFinal:         string;

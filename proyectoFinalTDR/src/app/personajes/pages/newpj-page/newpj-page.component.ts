@@ -61,7 +61,7 @@ export class NewpjPageComponent implements OnInit {
 
   get currentCharacter(): Personaje {
     const character = this.characterForm.value as Personaje;
-
+  
     return character;
   }
 
