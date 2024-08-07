@@ -1,4 +1,4 @@
 export interface Romanticismo {
-    id:               string;
+    _id:               string;
     nombre:         string;
 }

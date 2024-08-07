@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, catchError, map, of } from 'rxjs';
 import { Personaje } from '../interfaces/pj.interface';
 import { environments } from '../../../environments/environments';
@@ -13,6 +13,11 @@ import { Romanticismo } from '../interfaces/romanticismo.interface';
 export class pjServices {
 
 private baseUrl: string = environments.baseUrl;
+
+private headers = new HttpHeaders ({
+    'Content-Type': 'application/json',
+    'Authorization': ''
+})
 
 constructor(private http: HttpClient) { }
 
@@ -62,7 +67,6 @@ getSuggestions( query: string ): Observable<Personaje[]> {
 }
 
 createPersonaje( personaje: Personaje ): Observable<Personaje> {
-    console.log("entra");
     return this.http.post<Personaje>( `${ this.baseUrl }/api/personaje/create`, personaje );
 }
 

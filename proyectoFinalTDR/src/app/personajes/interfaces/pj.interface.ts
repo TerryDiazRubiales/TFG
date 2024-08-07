@@ -8,4 +8,5 @@ export interface Personaje {
     orientacionSexual: string;
     sexo:              string;
     signoZodiacal:     string;
+    usuario:           string;
 }

@@ -1,4 +1,4 @@
 export interface OrientacionSexual {
-    id:               string;
+    _id:               string;
     nombre:         string;
 }
