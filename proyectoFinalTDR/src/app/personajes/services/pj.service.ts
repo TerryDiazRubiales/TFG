@@ -12,6 +12,7 @@ import { Romanticismo } from '../interfaces/romanticismo.interface';
 @Injectable({ providedIn: 'root' })
 export class pjServices {
   private baseUrl: string = environments.baseUrl;
+  
   private headers = new HttpHeaders({
     'Content-Type': 'application/json',
     Authorization: `Bearer ${localStorage.getItem('token')}`,

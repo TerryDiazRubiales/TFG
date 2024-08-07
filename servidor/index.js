@@ -6,15 +6,19 @@ const bodyParser = require("body-parser");
 const authRouter = require("./routes/auth");
 const apiRouter = require("./routes/api");
 const cors = require("cors");
+const { authenticate } = require("./middlewares/auth");
 // Conectamos a la base de datos
 class App {
   constructor() {
+       
     this.express = express();
     this.express.use(cors());
     this.database();
 
+    this.express.use(authenticate);
+    
     this.express.use(bodyParser.json());
-    // this.middlewares();
+    
     this.routes();
 
     this.express.listen(2202, () =>
@@ -28,10 +32,6 @@ class App {
   async database() {
     await mongoose.connect(db.uri, { useNewUrlParser: true });
   }
-
-  // middlewares() {
-  //   this.express.use(express.json());
-  // }
 
   routes() {
     this.express.use(["/auth", "/api"], [authRouter, apiRouter]);

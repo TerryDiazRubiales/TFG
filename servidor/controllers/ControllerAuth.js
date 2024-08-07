@@ -1,8 +1,6 @@
 const User = require("../models/Usuario");
 const jwt = require("jsonwebtoken");
-
-const JWT_SECRET =
-  "4b4ebe4e06ac0aec02f4fe5a45a4e1f4e4a0bb5b09211707549e714c0f0c6683";
+const db = require("../config/db");
 
 class ControllerAuth {
   //Logueo
@@ -20,7 +18,7 @@ class ControllerAuth {
         return res.status(401).json({ message: "Incorrect password" });
       }
 
-      const token = jwt.sign({ userId: user._id }, JWT_SECRET, {
+      const token = jwt.sign({ userId: user._id }, db.JWT_SECRET, {
         expiresIn: "1 hour",
       });
       res.json({ token });

@@ -23,4 +23,5 @@ routes.get("/personaje/orientacionSexual", personaje.orientacionSexual);
 // lista de romanticismo
 routes.get("/personaje/romanticismo", personaje.romanticismo);
 
+
 module.exports = routes;
