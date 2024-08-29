@@ -11,7 +11,7 @@ class ControllerPersonaje {
   async create(req, res, next) {
 
   try {
-    
+    console.log(req.user);
     const personaje = new Personaje({
       ...req.body,
       usuario: req.user._id
@@ -27,9 +27,9 @@ class ControllerPersonaje {
   async list(req, res, next) {
 
   try {
-
+    console.log(req.user);
     const personajesList = await Personaje.where({
-      usuario: req.user
+      usuario: req.user._id
 
     });
     res.status(200).send(personajesList);
@@ -88,6 +88,21 @@ class ControllerPersonaje {
   try {
     const romanticismoList = await Romanticismo.find();
     res.status(200).send(romanticismoList);
+  } catch (error) {
+    next(error);
+  }
+
+}
+
+async detail(req, res, next) {
+
+  try {
+    const detailList = await Personaje.where({
+      _id: req.params.id
+
+    });
+
+    res.status(200).send(detailList);
   } catch (error) {
     next(error);
   }

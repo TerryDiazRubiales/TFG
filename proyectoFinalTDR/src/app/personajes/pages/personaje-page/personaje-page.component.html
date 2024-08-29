@@ -1,5 +1,5 @@
- Personajes
- <!-- <ng-template #divLoading>
+
+<ng-template #divLoading>
     <mat-grid-list cols="1">
         <mat-grid-tile>
             <mat-spinner></mat-spinner>
@@ -9,31 +9,31 @@
 
 <div *ngIf="personaje; else divLoading" class="grid p-3">
     
-    <mat-card class="col-12 sm:col-6"> -->
+    <mat-card class="col-12 sm:col-6"> 
 
         <!-- imagen 
         <img [src]="personaje | personajeImage" [alt]="personaje.Nombre" mat-card-image /> -->
 
-    <!--  </mat-card>
+    </mat-card>
 
     <mat-card class="col-12 sm:col-6 ">
 
         <mat-card-header>
             <mat-card-title> Ficha del personaje </mat-card-title>
-            <mat-card-subtitle> {{ personaje.Nombre }} </mat-card-subtitle>
-            <mat-card-subtitle> {{ personaje.Apellidos }} </mat-card-subtitle>
+            <mat-card-subtitle> {{ personaje.nombre }} </mat-card-subtitle>
+            <mat-card-subtitle> {{ personaje.apellidos }} </mat-card-subtitle>
         </mat-card-header>
 
         <mat-card-content>
 
             <mat-list>
-                <mat-list-item> Cumpleaños: {{ personaje.Cumpleanos }} </mat-list-item>
-                <mat-list-item> Signo Zodiacal: {{ personaje.SignoZodiacal }} </mat-list-item>
-                <mat-list-item> Genero: {{ personaje.Genero }} </mat-list-item>
-                <mat-list-item> Sexo: {{ personaje.Sexo }} </mat-list-item>
-                <mat-list-item> Orientación Sexual: {{ personaje.OrientacionSexual }} </mat-list-item>
+                <mat-list-item> Cumpleaños: {{ personaje.cumpleanos }} </mat-list-item>
+                <mat-list-item> Signo Zodiacal: {{ personaje.signoZodiacal }} </mat-list-item>
+                <mat-list-item> Genero: {{ personaje.genero }} </mat-list-item>
+                <mat-list-item> Sexo: {{ personaje.sexo }} </mat-list-item>
+                <mat-list-item> Orientación Sexual: {{ personaje.orientacionSexual }} </mat-list-item>
                 <br>
-                <mat-list-item> Historia: {{ personaje.Historia }} </mat-list-item>
+                <mat-list-item> Historia: {{ personaje.historia }} </mat-list-item>
             </mat-list>
 
             <button mat-button color="warm" (click)="goBack()">
@@ -44,4 +44,4 @@
         
     </mat-card>
 
-</div> -->
+</div> 

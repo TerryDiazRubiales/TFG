@@ -1,4 +1,5 @@
 export interface Personaje {
+    _id:                string;
     ace:               string;
     apellidos:         string;
     cumpleanos:        string;

@@ -14,26 +14,23 @@ export class PersonajePageComponent implements OnInit {
 
   public personaje?: Personaje;
  
-  constructor( private PJServices : pjServices,
+  constructor( private pjServices : pjServices,
               private activatedRouter: ActivatedRoute,
               private router: Router) { }
 
   ngOnInit(): void {
-    this.activatedRouter.params
-    .pipe(
-      delay(2000), 
-      switchMap( ({ id }) => this.PJServices.getPersonajeById( id) ),
-    )
-    .subscribe( personaje => {
-      if (!personaje) return this.router.navigate([ 'personajes/list' ]);
+    const id = this.activatedRouter.snapshot.paramMap.get('id') ?? '';
+    this.pjServices.getPersonajeById(id).subscribe( personaje => {
+      this.personaje = personaje
 
-      this.personaje = personaje;
-      return;  
+      console.log(this.personaje);
     })
+
   }
 
   goBack(): void {
     this.router.navigateByUrl('personajes/list')
   }
+  
 
 }

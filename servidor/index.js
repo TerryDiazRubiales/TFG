@@ -3,10 +3,11 @@ const db = require("./config/db");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 
+
 const authRouter = require("./routes/auth");
 const apiRouter = require("./routes/api");
 const cors = require("cors");
-const { authenticate } = require("./middlewares/auth");
+
 // Conectamos a la base de datos
 class App {
   constructor() {
@@ -15,8 +16,6 @@ class App {
     this.express.use(cors());
     this.database();
 
-    this.express.use(authenticate);
-    
     this.express.use(bodyParser.json());
     
     this.routes();
