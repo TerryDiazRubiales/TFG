@@ -6,6 +6,12 @@ const { authenticate } = require("../middlewares/auth");
 // Crear personaje
 routes.post("/personaje/create", authenticate, personaje.create);
 
+// Editar personaje
+routes.patch("/personaje/:id", authenticate, personaje.edit);
+
+// Borrar personaje
+routes.delete("/personaje/:id", authenticate, personaje.delete);
+
 // listar personajes
 routes.get("/personaje/list",authenticate, personaje.list);
 

@@ -8,6 +8,7 @@ import { Sexo } from '../interfaces/sexo.interface';
 import { SignoZodiacal } from '../interfaces/signoZodiacal.interface';
 import { OrientacionSexual } from '../interfaces/orientacionSexual.interface';
 import { Romanticismo } from '../interfaces/romanticismo.interface';
+import { PersonajeResponse } from '../interfaces/personajeResponse.interface';
 
 @Injectable({ providedIn: 'root' })
 export class pjServices {
@@ -82,15 +83,14 @@ export class pjServices {
     );
   }
 
-  getPersonajeById(id: string): Observable<Personaje | undefined> {
+  getPersonajeById(id: string): Observable<PersonajeResponse > {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${localStorage.getItem('token')}`,
     });
 
     return this.http
-      .get<Personaje>(`${this.baseUrl}/api/personaje/${id}`, {headers: headers})
-      .pipe(catchError((error) => of(undefined)));
+      .get<PersonajeResponse>(`${this.baseUrl}/api/personaje/${id}`, {headers: headers});
   }
 
   getSuggestions(query: string): Observable<Personaje[]> {
@@ -117,15 +117,15 @@ export class pjServices {
     );
   }
 
-  updateCharacter(personaje: Personaje): Observable<Personaje> {
+  updateCharacter(personaje: Personaje, id: string): Observable<Personaje> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${localStorage.getItem('token')}`,
     });
-
+ 
     if (!personaje.nombre) throw Error('Character id is required');
     return this.http.patch<Personaje>(
-      `${this.baseUrl}/personajes/${personaje.nombre}`,
+      `${this.baseUrl}/api/personaje/${id}`,
       personaje, {headers: headers}
     );
   }
@@ -136,7 +136,7 @@ export class pjServices {
       'Authorization': `Bearer ${localStorage.getItem('token')}`,
     });
 
-    return this.http.delete(`${this.baseUrl}/personajes/${id}`, {headers: headers}).pipe(
+    return this.http.delete(`${this.baseUrl}/api/personaje/${id}`, {headers: headers}).pipe(
       map((resp) => true),
       catchError((err) => of(false))
     );

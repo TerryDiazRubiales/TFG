@@ -11,7 +11,6 @@ class ControllerPersonaje {
   async create(req, res, next) {
 
   try {
-    console.log(req.user);
     const personaje = new Personaje({
       ...req.body,
       usuario: req.user._id
@@ -27,7 +26,6 @@ class ControllerPersonaje {
   async list(req, res, next) {
 
   try {
-    console.log(req.user);
     const personajesList = await Personaje.where({
       usuario: req.user._id
 
@@ -97,17 +95,43 @@ class ControllerPersonaje {
 async detail(req, res, next) {
 
   try {
-    const detailList = await Personaje.where({
-      _id: req.params.id
-
-    });
-
+    const detailList = await Personaje.findById(req.params.id).populate(['genero','sexo', 'orientacionSexual','signoZodiacal', 'romanticismo']).exec();
+    console.log(detailList);
+    
     res.status(200).send(detailList);
   } catch (error) {
     next(error);
   }
 
 }
+
+
+async edit(req, res, next) {
+
+  try {
+    const detailList = await Personaje.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true });
+    
+    res.status(200).send(detailList);
+  } catch (error) {
+    next(error);
+  }
+
+}
+
+
+async delete(req, res, next) {
+
+  try {
+    
+    const detailList = await Personaje.findOneAndDelete({ _id: req.params.id });
+    
+    res.status(200).send(detailList);
+  } catch (error) {
+    next(error);
+  }
+
+}
+
 
 }
 

@@ -27,13 +27,19 @@
         <mat-card-content>
 
             <mat-list>
-                <mat-list-item> Cumpleaños: {{ personaje.cumpleanos }} </mat-list-item>
-                <mat-list-item> Signo Zodiacal: {{ personaje.signoZodiacal }} </mat-list-item>
-                <mat-list-item> Genero: {{ personaje.genero }} </mat-list-item>
-                <mat-list-item> Sexo: {{ personaje.sexo }} </mat-list-item>
-                <mat-list-item> Orientación Sexual: {{ personaje.orientacionSexual }} </mat-list-item>
+                <mat-list-item> Cumpleaños: {{ personaje.fechaCumple }} </mat-list-item>
+                <mat-list-item> Signo Zodiacal: {{ personaje.signoZodiacal.nombre }} </mat-list-item>
+                <mat-list-item> Genero: {{ personaje.genero.nombre }} </mat-list-item>
+                <mat-list-item> Sexo: {{ personaje.sexo.nombre }} </mat-list-item>
+
+                <mat-list-item *ngIf="personaje.ace.nombre !== ' '"> Romanticismo: {{ personaje.ace.nombre }} </mat-list-item>
+
+                <mat-list-item > Orientación Sexual: {{ personaje.orientacionSexual.nombre }} </mat-list-item>
                 <br>
-                <mat-list-item> Historia: {{ personaje.historia }} </mat-list-item>
+                <div>
+                    <h3>Historia: </h3>
+                    <p class="historia">{{ personaje.historia }} </p>
+                </div>
             </mat-list>
 
             <button mat-button color="warm" (click)="goBack()">

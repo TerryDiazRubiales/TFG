@@ -28,6 +28,7 @@ import { Romanticismo } from '../../interfaces/romanticismo.interface';
 })
 export class NewpjPageComponent implements OnInit {
 
+  id: string = '';
   isEditar: boolean = false;
   generos: Genero[] = [];
   sexo: Sexo[] = [];
@@ -60,13 +61,42 @@ export class NewpjPageComponent implements OnInit {
 
 
   get currentCharacter(): Personaje {
-    const character = this.characterForm.value as Personaje;
+    const character = this.characterForm.value as any;
   
     return character;
   }
 
   // ngOnInit()
   ngOnInit(): void {
+
+    this.id = this.activatedRoute.snapshot.paramMap.get('id') ?? '';
+
+    if (this.id === '') {
+      // Mostrar formulario agregar
+      this.isEditar = false;
+
+    } else {
+      // Mostrar Editar
+      this.isEditar = true;
+      this.PJService.getPersonajeById(this.id).subscribe( personaje => {
+        console.log(personaje);
+        this.characterForm.get('nombre')?.setValue(personaje.nombre);
+        this.characterForm.get('apellidos')?.setValue(personaje.apellidos);
+        this.characterForm.get('fechaCumple')?.setValue(personaje.fechaCumple);
+        this.characterForm.get('historia')?.setValue(personaje.historia);
+        this.characterForm.get('genero')?.setValue(personaje.genero._id);
+        this.characterForm.get('orientacionSexual')?.setValue(personaje.orientacionSexual._id);
+        this.characterForm.get('sexo')?.setValue(personaje.sexo._id);
+        this.characterForm.get('signoZodiacal')?.setValue(personaje.signoZodiacal._id);
+        this.characterForm.get('romanticismo')?.setValue(personaje.romanticismo._id);
+        
+        // this.personaje = {
+        //   ...personaje,
+        //   ace: personaje.romanticismo
+        // }
+      })
+
+    }
 
     // OBTENCIÓN DE GÉNEROS
     this.PJService.getGeneros().subscribe(
@@ -131,23 +161,6 @@ export class NewpjPageComponent implements OnInit {
         },
 
       })
-    // FIN
-
-
-    if (!this.router.url.includes('edit')) return;
-
-    this.activatedRoute.params
-      .pipe(
-        switchMap(({ id }) => this.PJService.getPersonajeById(id)),
-      ).subscribe(character => {
-
-        if (!character) return this.router.navigateByUrl('/');
-
-        this.characterForm.reset(character);
-        return;
-
-      });
-
   }
 
   onSubmit(): void {
@@ -157,7 +170,7 @@ export class NewpjPageComponent implements OnInit {
     if (this.isEditar) {
 
       //EDITAR PERSONAJE
-      this.PJService.updateCharacter(this.currentCharacter)
+      this.PJService.updateCharacter(this.currentCharacter, this.id)
         .subscribe(character => {
           // TODO: mostrar snackbar
 
@@ -184,16 +197,14 @@ export class NewpjPageComponent implements OnInit {
   }
 
   onDeleteCharacter() {
-    if (!this.currentCharacter.nombre) throw Error('Character id is required');
+    if (!this.id) throw Error('Character id is required');
 
-    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+    this.dialog.open(ConfirmDialogComponent, {
       data: this.characterForm.value,
-    });
-
-    dialogRef.afterClosed()
+    }).afterClosed()
       .pipe(
         filter((result: boolean) => result), // lo dejo pasar si el resultado es positivo
-        switchMap(() => this.PJService.deleteCharacterById(this.currentCharacter.nombre)), // si es positivo mandamos a eliminar 
+        switchMap(() => this.PJService.deleteCharacterById(this.id)), // si es positivo mandamos a eliminar 
         filter((wasDeleted: boolean) => wasDeleted) // se elimina y lo dejamos pasar 
       )
       .subscribe(() => {
