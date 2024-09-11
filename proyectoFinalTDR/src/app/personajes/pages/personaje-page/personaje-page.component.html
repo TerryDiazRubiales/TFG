@@ -9,14 +9,14 @@
 
 <div *ngIf="personaje; else divLoading" class="grid p-3">
     
-    <mat-card class="col-12 sm:col-6"> 
+    <mat-card class="col-6 sm:col-6"> 
 
-        <!-- imagen 
-        <img [src]="personaje | personajeImage" [alt]="personaje.Nombre" mat-card-image /> -->
+        <!-- IMAGEN -->
+        <img [src]="personaje.imagen" [alt]="personaje.nombre" mat-card-image /> 
 
     </mat-card>
 
-    <mat-card class="col-12 sm:col-6 ">
+    <mat-card class="col-6 sm:col-6 ">
 
         <mat-card-header>
             <mat-card-title> Ficha del personaje </mat-card-title>
@@ -42,7 +42,31 @@
                 </div>
             </mat-list>
 
-            <button mat-button color="warm" (click)="goBack()">
+            <!-- LIkES -->
+
+             <!-- Se desactiva el botón poruqe ese user ya le ha dado like -->
+            <button *ngIf="personaje.userLike" class="btn btn-success" disabled (click)="like(personaje._id, personaje.usuario)">
+                <i class="bi bi-hand-thumbs-up-fill"></i>
+            </button> 
+
+            <!-- Le puede dar porque no tiene aun like de ese user -->
+            <button *ngIf="personaje.userLike === false" mat-button class="btn btn-success" (click)="like(personaje._id, personaje.usuario)">
+                <i class="bi bi-hand-thumbs-up-fill"></i>
+            </button> 
+            
+            <!-- UNLIkES -->
+
+            <!-- Le puede dar porque no ha quitado el like anterior -->
+            <button *ngIf="personaje.userLike === true" mat-button class="btn btn-danger" (click)="unlike(personaje._id, personaje.usuario)">
+                <i class="bi bi-hand-thumbs-down-fill"></i>
+            </button> 
+
+            <!-- se bloquea cuando no existe el like -->
+            <button *ngIf="personaje.userLike === false" disabled class="btn btn-danger" (click)="unlike(personaje._id, personaje.usuario)">
+                <i class="bi bi-hand-thumbs-down-fill"></i>
+            </button> 
+            
+            <button class="btn btn-secondary" (click)="goBack()">
                 Volver
             </button>
 

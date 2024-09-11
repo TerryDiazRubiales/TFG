@@ -10,6 +10,7 @@ import { OrientacionSexual } from '../interfaces/orientacionSexual.interface';
 import { Romanticismo } from '../interfaces/romanticismo.interface';
 import { PersonajeResponse } from '../interfaces/personajeResponse.interface';
 
+
 @Injectable({ providedIn: 'root' })
 export class pjServices {
   private baseUrl: string = environments.baseUrl;
@@ -26,6 +27,16 @@ export class pjServices {
 
     return this.http.get<Personaje[]>(`${this.baseUrl}/api/personaje/list`, {headers: headers});
   }
+
+  getSuggestions(query: string): Observable<Personaje[]> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('token')}`,
+    });
+    
+    return this.http.get<Personaje[]>(`${this.baseUrl}/api/personaje/buscar?q=${query}`, {headers: headers});
+  }
+
 
   // OBTENCIÓN DE GENEROS
   getGeneros(): Observable<Genero[]> {
@@ -93,15 +104,6 @@ export class pjServices {
       .get<PersonajeResponse>(`${this.baseUrl}/api/personaje/${id}`, {headers: headers});
   }
 
-  getSuggestions(query: string): Observable<Personaje[]> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${localStorage.getItem('token')}`,
-    });
-    
-    return this.http.get<Personaje[]>(`${this.baseUrl}/personajes?q=${query}`, {headers: headers});
-  }
-
   createPersonaje(personaje: Personaje): Observable<Personaje> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -141,4 +143,41 @@ export class pjServices {
       catchError((err) => of(false))
     );
   }
+
+  like (personaje: string, id: string): Observable<Personaje> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('token')}`,
+    });
+    console.log("headers:", headers);
+
+    return this.http.post<Personaje>
+    (`${this.baseUrl}/api/personaje/like`,
+      { 
+        personaje: personaje, 
+        usuario: id 
+      },
+      { headers: headers });
+  }
+
+  unlike (personaje: string, id: string): Observable<Personaje> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('token')}`,
+    });
+  
+    return this.http.post<Personaje>
+    (`${this.baseUrl}/api/personaje/unlike`, 
+      { 
+        personaje: personaje, 
+        usuario: id 
+      },
+      { headers: headers });
+  }
+  
+
 }
+
+
+
+

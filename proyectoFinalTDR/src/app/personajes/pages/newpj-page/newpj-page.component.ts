@@ -48,6 +48,7 @@ export class NewpjPageComponent implements OnInit {
     orientacionSexual: new FormControl('', Validators.required),
     sexo: new FormControl('', Validators.required),
     signoZodiacal: new FormControl('', Validators.required),
+    imagen: new FormControl(''),
 
   });
 
@@ -78,17 +79,18 @@ export class NewpjPageComponent implements OnInit {
     } else {
       // Mostrar Editar
       this.isEditar = true;
-      this.PJService.getPersonajeById(this.id).subscribe( personaje => {
-        console.log(personaje);
-        this.characterForm.get('nombre')?.setValue(personaje.nombre);
-        this.characterForm.get('apellidos')?.setValue(personaje.apellidos);
-        this.characterForm.get('fechaCumple')?.setValue(personaje.fechaCumple);
-        this.characterForm.get('historia')?.setValue(personaje.historia);
-        this.characterForm.get('genero')?.setValue(personaje.genero._id);
-        this.characterForm.get('orientacionSexual')?.setValue(personaje.orientacionSexual._id);
-        this.characterForm.get('sexo')?.setValue(personaje.sexo._id);
-        this.characterForm.get('signoZodiacal')?.setValue(personaje.signoZodiacal._id);
-        this.characterForm.get('romanticismo')?.setValue(personaje.romanticismo._id);
+      this.PJService.getPersonajeById(this.id).subscribe( ({detailList, likes}) => {
+
+        this.characterForm.get('nombre')?.setValue(detailList.nombre);
+        this.characterForm.get('apellidos')?.setValue(detailList.apellidos);
+        this.characterForm.get('fechaCumple')?.setValue(detailList.fechaCumple);
+        this.characterForm.get('historia')?.setValue(detailList.historia);
+        this.characterForm.get('genero')?.setValue(detailList.genero._id);
+        this.characterForm.get('orientacionSexual')?.setValue(detailList.orientacionSexual._id);
+        this.characterForm.get('sexo')?.setValue(detailList.sexo._id);
+        this.characterForm.get('signoZodiacal')?.setValue(detailList.signoZodiacal._id);
+        this.characterForm.get('romanticismo')?.setValue(detailList.romanticismo._id);
+        this.characterForm.get('imagen')?.setValue(detailList.imagen);
         
         // this.personaje = {
         //   ...personaje,
@@ -163,6 +165,7 @@ export class NewpjPageComponent implements OnInit {
       })
   }
 
+  // ONSUBMIT
   onSubmit(): void {
 
     if (this.characterForm.invalid) return;
@@ -174,20 +177,24 @@ export class NewpjPageComponent implements OnInit {
         .subscribe(character => {
           // TODO: mostrar snackbar
 
-          this.showSnackbar(`${character.nombre} actualizado correctamente!`);
+          this.showSnackbar(`${character.nombre} editado correctamente!`);
 
         });
 
       //CREAR PERSONAJE
     } else {
+console.log(this.currentCharacter);
 
       this.characterForm.valid ?
         this.PJService.createPersonaje(this.currentCharacter)
           .subscribe(character => {
-            // TODO: mostrar snackbar, y navegar a /personajes/edit/personaje.id
+            // mostrar snackbar, y navegar a /personajes/edit/personaje.id
+
+            // Resetear formulario
+            this.characterForm.reset();
 
             // this.router.navigate(['/personajes/edit', character.nombre]);
-            this.showSnackbar(`${character.nombre} Personaje creado correctamente!`);
+            this.showSnackbar(`${character.nombre} creado correctamente!`);
 
           })
         : this.showSnackbar(`Formulario erronéo!`);
@@ -209,25 +216,11 @@ export class NewpjPageComponent implements OnInit {
       )
       .subscribe(() => {
 
+        this.showSnackbar(`Personaje eliminado correctamente!`);
         this.router.navigate(['/personajes'])
 
       })
 
-    /* dialogRef.afterClosed().subscribe(result => {
-
-      if ( !result ) return;
-
-      this.PJService.deleteCharacterById( this.currentCharacter.Nombre )
-      .subscribe( wasDeleted => {
-
-          if ( wasDeleted ) {
-            this.router.navigate(['/personajes'])
-          }
-          
-      } )
-      
-
-    }); */
 
   }
 
@@ -239,5 +232,7 @@ export class NewpjPageComponent implements OnInit {
 
 
   }
+
+  
 
 }

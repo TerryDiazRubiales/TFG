@@ -16,4 +16,7 @@ export interface Personaje {
     sexo:              Sexo;
     signoZodiacal:     SignoZodiacal;
     usuario:           string;
+    imagen?:            string;
+    likes?:             string;
+    userLike?:          boolean
 }

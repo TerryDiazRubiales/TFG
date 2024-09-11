@@ -4,7 +4,7 @@ const Sexo = require("../models/Sexo");
 const SignoZodiacal = require("../models/SignoZodiacal");
 const OrientacionSexual = require("../models/OrientacionSexual");
 const Romanticismo = require("../models/Romanticismo");
-
+const Like = require("../models/Like");
 class ControllerPersonaje {
 
   //Creación de personaje
@@ -30,6 +30,23 @@ class ControllerPersonaje {
       usuario: req.user._id
 
     });
+    res.status(200).send(personajesList);
+
+  } catch (error) {
+    next(error);
+  }
+
+}
+
+async search(req, res, next) {
+
+  console.log(req.query.q);
+
+  try {
+    const q = req.query.q;
+    const regex = new RegExp(q, 'i') // i for case insensitive
+
+    const personajesList = await Personaje.find({nombre: {$regex: regex}})
     res.status(200).send(personajesList);
 
   } catch (error) {
@@ -95,10 +112,17 @@ class ControllerPersonaje {
 async detail(req, res, next) {
 
   try {
-    const detailList = await Personaje.findById(req.params.id).populate(['genero','sexo', 'orientacionSexual','signoZodiacal', 'romanticismo']).exec();
-    console.log(detailList);
+    let detailList = await Personaje.findById(req.params.id).populate(['genero','sexo', 'orientacionSexual','signoZodiacal', 'romanticismo']).exec();
     
-    res.status(200).send(detailList);
+    const likes = await Like.where({personaje: req.params.id}).countDocuments();
+    
+    // Te da el like de un usuario y contamos cuantos ha sido para bloquearlo si ya tiene uno
+    const userLike = await Like.where({
+      personaje: req.params.id,
+      usuario: req.user._id
+    }).countDocuments();
+
+    res.status(200).send({detailList, likes, userLike});
   } catch (error) {
     next(error);
   }
@@ -126,6 +150,47 @@ async delete(req, res, next) {
     const detailList = await Personaje.findOneAndDelete({ _id: req.params.id });
     
     res.status(200).send(detailList);
+  } catch (error) {
+    next(error);
+  }
+
+}
+
+async like(req, res, next) {
+
+  try {
+    
+    const like = new Like({
+      usuario: req.body.usuario,
+      personaje: req.body.personaje
+      
+    });
+    await like.save();
+    res.status(200).send({
+      error: '200',
+      message: 'Like OK'
+    });
+    
+  } catch (error) {
+    next(error);
+  }
+
+}
+
+async unlike(req, res, next) {
+  try {
+    
+    const unlike = await Like.findOneAndDelete(
+      { usuario: req.body.usuario,
+        personaje: req.body.personaje
+      }
+    );
+    
+    res.status(200).send({
+      error: '200',
+      message: 'Unlike OK'
+    });
+    
   } catch (error) {
     next(error);
   }

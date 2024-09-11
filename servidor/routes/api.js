@@ -15,6 +15,9 @@ routes.delete("/personaje/:id", authenticate, personaje.delete);
 // listar personajes
 routes.get("/personaje/list",authenticate, personaje.list);
 
+// buscar personajes
+routes.get("/personaje/buscar",authenticate, personaje.search);
+
 // listar géneros
 routes.get("/personaje/generos",authenticate, personaje.generos);
 
@@ -32,5 +35,11 @@ routes.get("/personaje/romanticismo",authenticate, personaje.romanticismo);
 
 // listar informacion
 routes.get("/personaje/:id",authenticate, personaje.detail);
+
+// like
+routes.post("/personaje/like",authenticate, personaje.like);
+
+// unlike
+routes.post("/personaje/unlike",authenticate, personaje.unlike);
 
 module.exports = routes;

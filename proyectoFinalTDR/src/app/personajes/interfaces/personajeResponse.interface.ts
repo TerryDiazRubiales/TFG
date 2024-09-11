@@ -5,6 +5,8 @@ import { Sexo } from "./sexo.interface";
 import { SignoZodiacal } from "./signoZodiacal.interface";
 
 export interface PersonajeResponse {
+    
+   detailList: {
     _id:                string;
     romanticismo:      Romanticismo;
     apellidos:         string;
@@ -16,4 +18,9 @@ export interface PersonajeResponse {
     sexo:              Sexo;
     signoZodiacal:     SignoZodiacal;
     usuario:           string;
+    imagen:            string;
+   },
+   likes:               string;
+   userLike?:           string;
+
 }

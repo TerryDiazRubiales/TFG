@@ -46,11 +46,15 @@ const PersonajeSchema = new mongoose.Schema({
         type: Schema.Types.ObjectId,
         ref: "Romanticismo",
     },
+    imagen: {
+        type: String,
+    },
     usuario: {
         type: Schema.Types.ObjectId,
         ref: "Usuario",
         require: true
-    }
+    },
+    
    
 },
 {
