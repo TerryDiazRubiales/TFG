@@ -25,6 +25,7 @@ export class PersonajePageComponent implements OnInit {
 
   ngOnInit(): void {
     const id = this.activatedRouter.snapshot.paramMap.get('id') ?? '';
+
     this.pjServices.getPersonajeById(id).subscribe( ({detailList, likes, userLike}) => {
 
       this.personaje = {

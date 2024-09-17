@@ -42,31 +42,37 @@
                 </div>
                 <div>
                     <h3>Creador: </h3>
-                    <p>  </p>
+                    <div class="list-group">
+                        
+                        <a href="#" class="list-group-item list-group-item-action">Nombre: {{ personaje.usuario.nombre }}</a>
+                        <a href="#" class="list-group-item list-group-item-action">Email: {{ personaje.usuario.email }}</a>
+                       
+                      </div>
+
                 </div>
             </mat-list>
 
             <!-- LIkES -->
 
              <!-- Se desactiva el botón poruqe ese user ya le ha dado like -->
-            <button *ngIf="personaje.userLike" class="btn btn-success" disabled (click)="like(personaje._id, personaje.usuario)">
+            <button *ngIf="personaje.userLike" class="btn btn-success" disabled (click)="like(personaje._id, personaje.usuario._id)">
                 <i class="bi bi-hand-thumbs-up-fill"></i>
             </button> 
 
             <!-- Le puede dar porque no tiene aun like de ese user -->
-            <button *ngIf="personaje.userLike === false" mat-button class="btn btn-success" (click)="like(personaje._id, personaje.usuario)">
+            <button *ngIf="personaje.userLike === false" mat-button class="btn btn-success" (click)="like(personaje._id, personaje.usuario._id)">
                 <i class="bi bi-hand-thumbs-up-fill"></i>
             </button> 
             
             <!-- UNLIkES -->
 
             <!-- Le puede dar porque no ha quitado el like anterior -->
-            <button *ngIf="personaje.userLike === true" mat-button class="btn btn-danger" (click)="unlike(personaje._id, personaje.usuario)">
+            <button *ngIf="personaje.userLike === true" mat-button class="btn btn-danger" (click)="unlike(personaje._id, personaje.usuario._id)">
                 <i class="bi bi-hand-thumbs-down-fill"></i>
             </button> 
 
             <!-- se bloquea cuando no existe el like -->
-            <button *ngIf="personaje.userLike === false" disabled class="btn btn-danger" (click)="unlike(personaje._id, personaje.usuario)">
+            <button *ngIf="personaje.userLike === false" disabled class="btn btn-danger" (click)="unlike(personaje._id, personaje.usuario._id)">
                 <i class="bi bi-hand-thumbs-down-fill"></i>
             </button> 
             

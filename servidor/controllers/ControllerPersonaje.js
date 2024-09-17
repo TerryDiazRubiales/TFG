@@ -112,7 +112,7 @@ async search(req, res, next) {
 async detail(req, res, next) {
 
   try {
-    let detailList = await Personaje.findById(req.params.id).populate(['genero','sexo', 'orientacionSexual','signoZodiacal', 'romanticismo']).exec();
+    let detailList = await Personaje.findById(req.params.id).populate(['genero','sexo', 'orientacionSexual','signoZodiacal', 'romanticismo']).populate('usuario', ['_id', 'nombre', 'email']).exec();
     
     const likes = await Like.where({personaje: req.params.id}).countDocuments();
     
@@ -196,6 +196,7 @@ async unlike(req, res, next) {
   }
 
 }
+
 
 
 }

@@ -48,7 +48,7 @@ export class pjServices {
     return this.http.get<Genero[]>(`${this.baseUrl}/api/personaje/generos`, {headers: headers});
   }
 
-  // OBTENCIÓN DE GENEROS
+  // OBTENCIÓN DE SEXO
   getSexos(): Observable<Sexo[]> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -175,7 +175,20 @@ export class pjServices {
       { headers: headers });
   }
   
+  getRanking (): Observable< any>  {
 
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('token')}`,
+    });
+  
+    return this.http.get<any>(
+      `${this.baseUrl}/api/personaje/ranking`, {headers: headers}
+    );
+  
+  }
+
+  // FINAL
 }
 
 

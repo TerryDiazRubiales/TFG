@@ -5,6 +5,7 @@ import { NewpjPageComponent } from './pages/newpj-page/newpj-page.component';
 import { SearchPageComponent } from './pages/search-page/search-page.component';
 import { ListPageComponent } from './pages/list-page/list-page.component';
 import { PersonajePageComponent } from './pages/personaje-page/personaje-page.component';
+import { RankingPageComponent } from './pages/ranking-page/ranking-page.component';
 
 // localhost:4200/personajes/
 const routes: Routes = [
@@ -32,6 +33,11 @@ const routes: Routes = [
         component: ListPageComponent,
       },
 
+      {
+        path: 'ranking',
+        component: RankingPageComponent,
+      },
+      
       {
         path: ':id',
         component: PersonajePageComponent,

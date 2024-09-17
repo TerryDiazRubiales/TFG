@@ -15,7 +15,10 @@ export class LayoutPageComponent {
 
     { label: 'Añadir', icon: 'add', url: './new-personaje' },
 
+    { label: 'Ranking', icon: 'star', url: './ranking' },
+
     { label: 'Buscar ...', icon: 'search', url: './search' },
+
   ];
 
   logout (): void {

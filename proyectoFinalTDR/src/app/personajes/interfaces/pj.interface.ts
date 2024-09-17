@@ -3,6 +3,7 @@ import { OrientacionSexual } from "./orientacionSexual.interface";
 import { Romanticismo } from "./romanticismo.interface";
 import { Sexo } from "./sexo.interface";
 import { SignoZodiacal } from "./signoZodiacal.interface";
+import { Usuario } from "./usuario.interface";
 
 export interface Personaje {
     _id:                string;
@@ -15,7 +16,7 @@ export interface Personaje {
     orientacionSexual: OrientacionSexual;
     sexo:              Sexo;
     signoZodiacal:     SignoZodiacal;
-    usuario:           string;
+    usuario:           Usuario;
     imagen?:            string;
     likes?:             string;
     userLike?:          boolean
