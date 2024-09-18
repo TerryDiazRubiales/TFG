@@ -54,7 +54,9 @@ const PersonajeSchema = new mongoose.Schema({
         ref: "Usuario",
         require: true
     },
-    
+    likes: {
+        type: Number,
+    },
    
 },
 {

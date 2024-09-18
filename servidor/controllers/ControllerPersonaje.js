@@ -166,6 +166,13 @@ async like(req, res, next) {
       
     });
     await like.save();
+    
+  const likesCount = await Like.where({ personaje: req.body.personaje }).countDocuments();
+   
+   const likePersonaje = await Personaje.findOneAndUpdate(
+      { _id: req.body.personaje }, { likes: likesCount}, { new: true }
+    );
+
     res.status(200).send({
       error: '200',
       message: 'Like OK'
@@ -186,6 +193,12 @@ async unlike(req, res, next) {
       }
     );
     
+    const likesCount = await Like.where({ personaje: req.body.personaje }).countDocuments();
+   
+    const likePersonaje = await Personaje.findOneAndUpdate(
+      { _id: req.body.personaje }, { likes: likesCount}, { new: true }
+    );
+
     res.status(200).send({
       error: '200',
       message: 'Unlike OK'
@@ -197,6 +210,20 @@ async unlike(req, res, next) {
 
 }
 
+async ranking(req, res, next) {
+
+  try {
+    
+    const ranking = await Personaje.find().sort({likes:-1}).limit(3);
+
+    console.log('ranking: ', ranking);
+    res.status(200).send(ranking);
+  
+  } catch (error) {
+    next(error);
+  }
+
+}
 
 
 }

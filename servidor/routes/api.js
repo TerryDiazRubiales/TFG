@@ -6,6 +6,9 @@ const { authenticate } = require("../middlewares/auth");
 // Crear personaje
 routes.post("/personaje/create", authenticate, personaje.create);
 
+// ranking
+routes.get("/personaje/ranking",authenticate, personaje.ranking);
+
 // Editar personaje
 routes.patch("/personaje/:id", authenticate, personaje.edit);
 
@@ -41,5 +44,7 @@ routes.post("/personaje/like",authenticate, personaje.like);
 
 // unlike
 routes.post("/personaje/unlike",authenticate, personaje.unlike);
+
+
 
 module.exports = routes;
