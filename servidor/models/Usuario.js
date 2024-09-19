@@ -17,6 +17,9 @@ const UsuarioSchema = new mongoose.Schema(
       unique: true,
       required: true,
     },
+    vip: {
+      type: Boolean,
+    },
   },
   {
     timestamps: true,

@@ -1,5 +1,6 @@
 const express = require("express");
 const personaje = require("../controllers/ControllerPersonaje");
+const usuario = require("../controllers/ControllerUsuario");
 const routes = express.Router();
 const { authenticate } = require("../middlewares/auth");
 
@@ -45,6 +46,10 @@ routes.post("/personaje/like",authenticate, personaje.like);
 // unlike
 routes.post("/personaje/unlike",authenticate, personaje.unlike);
 
+// usuarios vip
+routes.post("/usuario/vip",authenticate, usuario.vip);
 
+// si es vip
+routes.get("/usuario/esVip",authenticate, usuario.esvip);
 
 module.exports = routes;

@@ -188,6 +188,32 @@ export class pjServices {
   
   }
 
+  getVip (): Observable< any>  {
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('token')}`,
+    });
+  
+    return this.http.post<any>(
+      `${this.baseUrl}/api/usuario/vip`, {headers: headers}
+    );
+  
+  }
+
+  getEsVip (): Observable< any>  {
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('token')}`,
+    });
+  
+    return this.http.get<any>(
+      `${this.baseUrl}/api/usuario/esvip`, {headers: headers}
+    );
+  
+  }
+
   // FINAL
 }
 

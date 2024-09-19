@@ -5,6 +5,7 @@ const SignoZodiacal = require("../models/SignoZodiacal");
 const OrientacionSexual = require("../models/OrientacionSexual");
 const Romanticismo = require("../models/Romanticismo");
 const Like = require("../models/Like");
+
 class ControllerPersonaje {
 
   //Creación de personaje
@@ -39,8 +40,6 @@ class ControllerPersonaje {
 }
 
 async search(req, res, next) {
-
-  console.log(req.query.q);
 
   try {
     const q = req.query.q;
@@ -214,7 +213,7 @@ async ranking(req, res, next) {
 
   try {
     
-    const ranking = await Personaje.find().sort({likes:-1}).limit(3);
+    const ranking = await Personaje.find().sort({likes:-1}).limit(5);
 
     console.log('ranking: ', ranking);
     res.status(200).send(ranking);
@@ -225,9 +224,7 @@ async ranking(req, res, next) {
 
 }
 
-
+// final 
 }
-
-
 
 module.exports = new ControllerPersonaje();

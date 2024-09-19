@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { pjServices } from '../../services/pj.service';
+import { Personaje } from '../../interfaces/pj.interface';
+import { Usuario } from '../../interfaces/usuario.interface';
 
 @Component({
   selector: 'app-ranking-page',
@@ -8,16 +10,19 @@ import { pjServices } from '../../services/pj.service';
 })
 export class RankingPageComponent {
 
+  public ranking: Personaje[] = [];
+  public Usuarios: Usuario[] = [];
+  
   constructor( private pjServices : pjServices,
 
   ) { }
 
-  ranking: any;
 
   ngOnInit(): void {
 
-    this.pjServices.getRanking()
 
+    this.pjServices.getRanking().subscribe( personaje => this.ranking = personaje);
+    // this.pjServices.getVip().subscribe( personaje => this.ranking = personaje);
     
 
   }

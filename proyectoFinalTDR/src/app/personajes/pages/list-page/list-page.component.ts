@@ -13,6 +13,7 @@ export class ListPageComponent implements OnInit {
   public personajes: Personaje[] = [];
 
   constructor( private PJServices : pjServices) { }
+  
   ngOnInit(): void {
     this.PJServices.getPersonajes()
     .subscribe( personaje => this.personajes = personaje);
