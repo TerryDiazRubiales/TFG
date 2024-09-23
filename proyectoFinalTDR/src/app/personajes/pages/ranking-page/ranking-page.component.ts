@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { pjServices } from '../../services/pj.service';
 import { Personaje } from '../../interfaces/pj.interface';
 import { Usuario } from '../../interfaces/usuario.interface';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-ranking-page',
@@ -14,15 +15,36 @@ export class RankingPageComponent {
   public Usuarios: Usuario[] = [];
   
   constructor( private pjServices : pjServices,
+    private router: Router,
 
   ) { }
 
 
   ngOnInit(): void {
 
+    this.pjServices.getEsVip().subscribe( usuario => { 
+      
+      console.log('Usuario: ', usuario);
+      
+      if ( usuario.length ===  0) { // !usuario => significa que es undefined o null
 
-    this.pjServices.getRanking().subscribe( personaje => this.ranking = personaje);
-    // this.pjServices.getVip().subscribe( personaje => this.ranking = personaje);
+        // mandar a página de formulario pago
+        this.router.navigate(['/personajes/pago'])
+
+      } else {
+  
+        this.pjServices.getRanking().subscribe( personaje => this.ranking = personaje);
+  
+      }
+
+      
+    });
+
+    
+    
+
+
+
     
 
   }

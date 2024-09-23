@@ -13,6 +13,8 @@ import { SearchPageComponent } from './pages/search-page/search-page.component';
 import { CardComponent } from './components/card/card.component';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 import { RankingPageComponent } from './pages/ranking-page/ranking-page.component';
+import { PagoPageComponent } from './pages/pago-page/pago-page.component';
+import { NgxPayPalModule } from 'ngx-paypal';
 
 
 
@@ -27,6 +29,7 @@ import { RankingPageComponent } from './pages/ranking-page/ranking-page.componen
     CardComponent,
     ConfirmDialogComponent,
     RankingPageComponent,
+    PagoPageComponent,
 
     //pipe
     // PersonajeImagePipe,
@@ -35,7 +38,8 @@ import { RankingPageComponent } from './pages/ranking-page/ranking-page.componen
     CommonModule,
     ReactiveFormsModule,
     PersonajesRoutingModule,
-    MaterialModule
+    MaterialModule,
+    NgxPayPalModule
   ]
 })
 export class PersonajesModule { }

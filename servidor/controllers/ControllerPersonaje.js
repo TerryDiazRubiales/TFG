@@ -213,7 +213,7 @@ async ranking(req, res, next) {
 
   try {
     
-    const ranking = await Personaje.find().sort({likes:-1}).limit(5);
+    const ranking = await Personaje.find().sort({likes:-1}).limit(3);
 
     console.log('ranking: ', ranking);
     res.status(200).send(ranking);

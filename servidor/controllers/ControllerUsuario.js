@@ -17,9 +17,9 @@ class ControllerUsuario {
       async esvip(req, res, next) {
 
         try {
-            const usuario = await Usuario.find({ _id: req.user._id });
-            
+            const usuario = await Usuario.find({ _id: req.user._id, vip: true });
             res.status(200).send(usuario);
+
           } catch (error) {
             next(error);
           }
