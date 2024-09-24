@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { pjServices } from '../../services/pj.service';
 import { Personaje } from '../../interfaces/pj.interface';
 import { Usuario } from '../../interfaces/usuario.interface';
+
+import { pjServices } from '../../services/pj.service';
 import { Router } from '@angular/router';
 
 @Component({

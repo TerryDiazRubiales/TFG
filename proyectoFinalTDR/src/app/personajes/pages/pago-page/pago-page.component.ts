@@ -1,6 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { ICreateOrderRequest } from "ngx-paypal";
 
+import { pjServices } from '../../services/pj.service';
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-pago-page',
   templateUrl: './pago-page.component.html',
@@ -10,8 +13,11 @@ export class PagoPageComponent {
 
   public payPalConfig: any;
   public showPaypalButtons: boolean = true;
- 
-  constructor() {}
+
+  constructor(
+    private pjServices : pjServices,
+    private router: Router,
+  ) {}
  
   ngOnInit() {
     this.payPalConfig = {
@@ -47,7 +53,8 @@ export class PagoPageComponent {
           ]
         },
       advanced: {
-        commit: "true"
+        commit: "true",
+        extraQueryParams: [ { name: "disable-funding", value:"credit,card"} ]
       },
       style: {
         label: "paypal",
@@ -59,6 +66,13 @@ export class PagoPageComponent {
           data,
           actions
         );
+
+        // AQUI SE PONE AL USUARIO COMO VIP Y SE REDIRECCIONA AL RANKING
+        this.pjServices.setVip().subscribe ( res => {
+          this.router.navigate(['/personajes/ranking'])
+        })
+
+
         actions.order.get().then((details:string) => {
           console.log(
             "onApprove - you can get full order details inside onApprove: ",
