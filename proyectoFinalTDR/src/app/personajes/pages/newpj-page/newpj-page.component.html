@@ -1,3 +1,12 @@
+
+<ng-template #divLoading>
+    <mat-grid-list cols="1">
+        <mat-grid-tile>
+            <mat-spinner></mat-spinner>
+        </mat-grid-tile>
+    </mat-grid-list>
+</ng-template>
+
 <h1>
     {{ isEditar ? 'Editar OC:' : 'Agregar OC' }}
     <small *ngIf="isEditar"> {{ currentCharacter.nombre }} </small>
@@ -5,9 +14,9 @@
 
 <mat-divider class="mb-2"></mat-divider>
 
-<div class="grid">
+<div *ngIf="!loading; else divLoading"   class="d-flex flex-wrap">
 
-    <div class="col-6 sm:col-6">
+    <div class="">
         <mat-card>
             <mat-card-content>
 
@@ -15,22 +24,22 @@
                 <form class="grid" [formGroup]="characterForm" (ngSubmit)="onSubmit()">
 
                     <!--los forms a rellenar -->
-                    <mat-form-field class="col-12 sm:col-6">
+                    <mat-form-field class="col-12 xs:col-12">
                         <mat-label>Nombre</mat-label>
                         <input matInput type="text" required formControlName="nombre" />
                     </mat-form-field>
 
-                    <mat-form-field class="col-12 sm:col-6">
+                    <mat-form-field class="col-12 xs:col-12">
                         <mat-label>Apellido</mat-label>
                         <input matInput type="text" required formControlName="apellidos" />
                     </mat-form-field>
 
-                    <mat-form-field class="col-12 sm:col-6">
+                    <mat-form-field class="col-12 xs:col-12">
                         <mat-label>Cumpleaños</mat-label>
                         <input matInput type="text" required formControlName="fechaCumple" />
                     </mat-form-field>
 
-                    <mat-form-field class="col-12 sm:col-6">
+                    <mat-form-field class="col-12 xs:col-12">
                         <mat-label>Signo Zodiacal</mat-label>
                         <mat-select formControlName="signoZodiacal" required>
                             <mat-option *ngFor="let signo of signoZodiacal" [value]="signo._id">
@@ -81,7 +90,7 @@
                         <input formControlName="historia" matInput type="text" required />
                     </mat-form-field>
 
-                    <mat-form-field class="col-12 sm:col-6">
+                    <mat-form-field class="col-12 xs:col-12">
                         <mat-label>URL de la foto</mat-label>
                         <input matInput type="text" formControlName="imagen" />
                     </mat-form-field>
@@ -112,10 +121,11 @@
 
     <!-- FOTO -->
 
-    <div class="col-6 sm:col-6">
+    <div>
 
         <!-- imagen del personaje -->
-        <mat-card *ngIf="currentCharacter.imagen">
+        <mat-card class="mt-4 justify-content-center" style="max-width: 300px;width: 100%;
+        text-align: -webkit-center;" *ngIf="currentCharacter.imagen">
             <img [src]="currentCharacter.imagen" [alt]="currentCharacter.nombre" mat-card-image /> 
         </mat-card>
 

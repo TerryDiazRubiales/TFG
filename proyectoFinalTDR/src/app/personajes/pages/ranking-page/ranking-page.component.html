@@ -1,4 +1,13 @@
-<div>
+<ng-template #divLoading>
+  <mat-grid-list cols="1">
+      <mat-grid-tile>
+          <mat-spinner></mat-spinner>
+      </mat-grid-tile>
+  </mat-grid-list>
+</ng-template>
+
+
+<div *ngIf="!loading; else divLoading">
   <h1 class="text-center"> 
     <i class="bi bi-star-fill"></i> ¡RANKING! <i class="bi bi-star-fill"></i> 
   </h1>

@@ -28,6 +28,8 @@ import { Romanticismo } from '../../interfaces/romanticismo.interface';
 })
 export class NewpjPageComponent implements OnInit {
 
+  loading: boolean = true;
+  
   id: string = '';
   isEditar: boolean = false;
   generos: Genero[] = [];
@@ -74,12 +76,16 @@ export class NewpjPageComponent implements OnInit {
 
     if (this.id === '') {
       // Mostrar formulario agregar
+      this.loading = false;
       this.isEditar = false;
 
     } else {
       // Mostrar Editar
+
       this.isEditar = true;
       this.PJService.getPersonajeById(this.id).subscribe( ({detailList, likes}) => {
+
+        this.loading = false;
 
         this.characterForm.get('nombre')?.setValue(detailList.nombre);
         this.characterForm.get('apellidos')?.setValue(detailList.apellidos);

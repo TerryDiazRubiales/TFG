@@ -7,16 +7,13 @@
     </mat-grid-list>
 </ng-template>
 
-<div *ngIf="personaje; else divLoading" class="grid p-3">
+<div *ngIf="personaje; else divLoading" class="d-flex flex-column" style="align-items: center;">
     
-    <mat-card class="col-6 sm:col-6"> 
+    <mat-card class="px-6">
 
         <!-- IMAGEN -->
-        <img [src]="personaje.imagen" [alt]="personaje.nombre" mat-card-image /> 
-
-    </mat-card>
-
-    <mat-card class="col-6 sm:col-6 ">
+        <img class="mt-4 justify-content-center" style="max-width: 300px;width: 100%;
+        text-align: -webkit-center;" [src]="personaje.imagen" [alt]="personaje.nombre" mat-card-image /> 
 
         <mat-card-header>
             <mat-card-title> Ficha del personaje </mat-card-title>

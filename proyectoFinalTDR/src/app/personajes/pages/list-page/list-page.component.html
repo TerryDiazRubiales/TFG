@@ -4,8 +4,8 @@
 
 </mat-divider>
 
-<div class="grid bm-8 pt-3">
-    <div *ngFor="let personaje of personajes" class="col-4 sm:col-1 md:col-3 xl:col-2">
+<div class="d-flex flex-wrap justify-content-center bm-8 pt-3">
+    <div *ngFor="let personaje of personajes" class="mr-2 mb-2">
 
         <personajes-personaje-card [personaje]="personaje"></personajes-personaje-card>
 

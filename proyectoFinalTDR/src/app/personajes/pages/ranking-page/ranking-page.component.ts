@@ -12,6 +12,8 @@ import { Router } from '@angular/router';
 })
 export class RankingPageComponent {
 
+  loading: boolean = true;
+
   public ranking: Personaje[] = [];
   public Usuarios: Usuario[] = [];
   
@@ -29,11 +31,14 @@ export class RankingPageComponent {
       
       if ( usuario.length ===  0) { // !usuario => significa que es undefined o null
 
+        this.loading = false;
         // mandar a página de formulario pago
         this.router.navigate(['/personajes/pago'])
 
       } else {
   
+        this.loading = false;
+        
         this.pjServices.getRanking().subscribe( personaje => this.ranking = personaje);
   
       }
